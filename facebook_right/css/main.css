@@ -1,0 +1,45 @@
+.show_hide {
+    position:fixed;
+    right:0px;
+    top:53px;
+    background:url(http://www.tourismthailand.org/img/black40.png);
+    padding:5px;
+    z-index:300;
+    cursor:pointer;
+}
+.social_share {
+    position:fixed;
+    width:68px;
+    padding:6px 6px 0 6px;
+    right:0px;
+    top:53px;
+    z-index:200;
+    border-radius:4px 0 0 4px;
+    background:url(http://www.tourismthailand.org/img/black40.png);
+}
+.social_share .social_share_button {
+    margin-bottom:6px;
+}
+
+.show_hide2 {
+    position:fixed;
+    left:0px;
+    top:53px;
+    background:url(http://www.tourismthailand.org/img/black40.png);
+    padding:5px;
+    z-index:300;
+    cursor:pointer;
+}
+.social_share2 {
+    position:fixed;
+    width:150px;
+    padding:6px 6px 0 6px;
+    left:0px;
+    top:53px;
+    z-index:200;
+    border-radius:4px 0 0 4px;
+    background:url(http://www.tourismthailand.org/img/black40.png);
+}
+.social_share2 .social_share_button2 {
+    margin-bottom:6px;
+}

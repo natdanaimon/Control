@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+    <detail>
+        <variable>var1</variable>
+        <th>ตัวแปรๅ</th>
+        <en>variable1</en>
+    </detail>
+    <detail>
+        <variable>var2</variable>
+        <th>ตัวแปร2</th>
+        <en>variable2</en>
+    </detail>
+</language>
