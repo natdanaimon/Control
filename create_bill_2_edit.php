@@ -106,6 +106,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <?php
                     include './ConnectDB/DB.php';
 
+                    /**
+					* 
+					* @var update game
+					* 
+					*/
+$strSql = "";
+$strSql .= "select w.* from ";
+$strSql .= "web w  ";
+$objQuery = mysql_query($strSql);
+$sumtotal = 0;
+while ($objResult = mysql_fetch_array($objQuery)) {
+	$rows_user = mysql_num_rows(mysql_query("select i_id from web2user where i_id = '".$objResult['i_id']."' and s_user = '".$_GET['user']."' "));
+	if($rows_user == 0){
+		$strSql = "";
+		$strSql .="INSERT INTO `web2user` (`id`, `i_id`, `s_user`) VALUES (NULL, '".$objResult['i_id']."', '".$_GET['user']."')
+		";
+		mysql_query($strSql);
+	}
+}
+                    
                     $strSql = " select ";
                     $strSql .= "    DATE_FORMAT(d_create, ";
                     $strSql .= "    '%Y-%m-%d') d_create, ";

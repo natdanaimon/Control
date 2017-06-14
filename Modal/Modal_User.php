@@ -207,7 +207,7 @@ $_SESSION["TYPE_UPDATE"] = "";
 
 
 
-<div id="ShowAddUser" class="modal hide fade" Style="top:<?= $_SESSION[top] ?>px" tabindex="-1" data-width="760">
+<div id="ShowAddUser" class="modal hide fade" Style="top:140px" tabindex="-1" data-width="760">
     <form action="/Control/Function/AddUser.php" method="post" enctype="multipart/form-data">
         <div class="modal-header bg-grey ">
 
@@ -216,12 +216,16 @@ $_SESSION["TYPE_UPDATE"] = "";
             </h4>
         </div>
         <div class="modal-body">
-            <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
+            <div class="scroller" style="height:350px" data-always-visible="1" data-rail-visible1="1">
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
                             <input class="m-wrap  " type="text" placeholder="ชื่อผู้ใช้งาน" name="user_add"   pattern="[^'\x22]+" required/>    
+                        </div>
+                        <div class="input-icon left" style="display: nones;">
+                            <i class="icon-user"></i>
+                            <input class="m-wrap  " type="text" placeholder="Map Excel" name="map_excel"   pattern="[^'\x22]+" required/>    
                         </div>
                         <div class="input-icon left">
                             <i class="icon-user"></i>
@@ -324,12 +328,16 @@ $_SESSION["TYPE_UPDATE"] = "";
             </h4>
         </div>
         <div class="modal-body">
-            <div class="scroller" style="height:270px" data-always-visible="1" data-rail-visible1="1">
+            <div class="scroller" style="height:320px" data-always-visible="1" data-rail-visible1="1">
                 <div class="row-fluid">
                     <div class="span6">
                         <div class="input-icon left">
                             <i class="icon-user"></i>
                             <input class="m-wrap " type="text" placeholder="ชื่อผู้ใช้งาน" name="user_add"  id="user_add"  pattern="[^'\x22]+" readonly="true"/>    
+                        </div>
+                        <div class="input-icon left" style="display: nones;">
+                            <i class="icon-user"></i>
+                            <input class="m-wrap  " type="text" placeholder="Map Excel" name="map_excel" id="map_excel"   pattern="[^'\x22]+" required/>    
                         </div>
                         <div class="input-icon left">
                             <i class="icon-user"></i>

@@ -11,6 +11,7 @@ $strSQL = " update  user  "
         . " fname = '" . $_POST['fname_add'] . "' , "
         . " lname = '" . $_POST['lname_add'] . "' , "
         . " pass = '" . $_POST['pass_add'] . "' ,"
+        . " map_excel = '" . $_POST['map_excel'] . "' ,"
         
         . " address = '" . $_POST['address1_add'] . "' ,"
         . " zipcode = " . $_POST['address2_add'] . " ,"

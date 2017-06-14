@@ -87,6 +87,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     $strSql .= "SELECT ";
                     $strSql .= "  h.s_user, ";
                     $strSql .= "  h.s_bill_no, ";
+                    $strSql .= "  h.s_bill_group, ";
                     $strSql .= "  DATE_FORMAT(h.d_start,'%d-%m-%Y') d_start , ";
                     $strSql .= "  DATE_FORMAT(h.d_end,'%d-%m-%Y') d_end , ";
                     $strSql .= "  DATE_FORMAT(h.d_start,'%Y-%m-%d') d_start2 , ";
@@ -154,7 +155,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                             <?php while ($objResult = mysql_fetch_array($objQuery)) { ?>
                                                 <tr class="odd gradeX">
     <!--                                                    <td><input type="checkbox" class="checkboxes" value="1" /></td>-->
-                                                    <td align="center">#<?= $objResult["s_bill_no"] ?>  
+                                                    <td align="center">#<?= $objResult["s_bill_no"] ?> <br /> <font style="color: #1e8883">[<?=$objResult["s_bill_group"];?>]</font>  
                                                         <?php
                                                         if ($objResult["s_clear"] == "Y") {
                                                             echo "<label class='badge badge-success'>" . $_SESSION["clearShow"] . "</label>";
@@ -193,6 +194,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                                 <li><a  class="btn green" data-toggle="modal" data-target="#ShowEditBill" onclick="showHint(<?php echo $objResult["s_bill_no"]; ?>);"> <i class="  icon-money"></i> <?= $_SESSION["_payment"] ?></a></li>
                                                                 <li><a  href="create_bill_2_edit.php?billno=<?= $objResult["s_bill_no"] ?>&user=<?= $objResult["s_user"] ?>" class="btn yellow"> <i class="icon-pencil"></i> <?= $_SESSION["action_edit"] ?></a></li>
                                                                 <li ><a href="/Control/Function/DeleteBilling.php?billno=<?= $objResult["s_bill_no"] ?>" class="btn red" ><i class="icon-trash"></i> <?= $_SESSION["action_delete"] ?></a></li>
+                                                                <li ><a href="/Control/Function/DeleteBillingGroup.php?s_bill_group=<?= $objResult["s_bill_group"] ?>" class="btn red" ><i class="icon-trash"></i><i class="icon-trash"></i> <?= $_SESSION["action_delete_group"] ?></a></li>
                                                                 <?php
                                                             } else {
                                                                 if ($objResult["f_accu"] - $objResult["f_accu_pay"] > 0 && $objResult["s_clear"] == "N") {
@@ -273,6 +275,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     </script>
     <?php ?>
     <script type="text/javascript">
+    $('#myModalAddBillSuccess').modal('show');
         $('#myModalDeleteBillSuccess').modal('show');
         $('#myModalDeleteBillFail').modal('show');
 

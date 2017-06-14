@@ -1,6 +1,6 @@
 ﻿<?php
 @session_start();
-include './Modal/Modal.php';
+
 ?>
 
 <!-- BEGIN HEADER -->   

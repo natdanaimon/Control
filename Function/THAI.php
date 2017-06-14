@@ -685,5 +685,11 @@ if ($objResult['var'] == '_add') {
 if ($objResult['var'] == '_result_pro_total') {
     $_SESSION['_result_pro_total'] = $objResult['thai'];
 }
+if ($objResult['var'] == 'file_excel_xlsx') {
+    $_SESSION['file_excel_xlsx'] = $objResult['thai'];
+}
+if ($objResult['var'] == 'action_delete_group') {
+    $_SESSION['action_delete_group'] = $objResult['thai'];
+}
 
 ?>

@@ -24,6 +24,8 @@
         </span>
     </div>
 </div>
-
+<?php
+include './Modal/Modal.php';
+?>
 
 

@@ -80,9 +80,10 @@ if ($image_) {
     $pic = "Default.png";
 }
 
-$sql = "insert into user ( user, pass, fname, lname, phone, email, picture, status,gold ,silver , win , lose ,nickname ,address ,line,facebook,type,zipcode, msg) VALUES ( "
+$sql = "insert into user ( user, pass, map_excel, fname, lname, phone, email, picture, status,gold ,silver , win , lose ,nickname ,address ,line,facebook,type,zipcode, msg) VALUES ( "
         . "'" . $_POST['user_add'] . "', "
         . "'" . $_POST['pass_add'] . "', "
+        . "'" . $_POST['map_excel'] . "', "
         . "'" . $_POST['fname_add'] . "', "
         . "'" . $_POST['lname_add'] . "', "
         . "'" . $_POST['phone_add'] . "', "

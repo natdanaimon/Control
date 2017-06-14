@@ -32,6 +32,7 @@ if ($objResult) {
     $_zipcode = $objResult["zipcode"];
     $_line = $objResult["line"];
     $_facebook = $objResult["facebook"];
+    $_map_excel = $objResult["map_excel"];
 
 
 
@@ -46,7 +47,8 @@ if ($objResult) {
             . $_address . ","
             . $_zipcode . ","
             . $_line . ","
-            . $_facebook;
+            . $_facebook . ","
+            . $_map_excel;
 }
 
 mysql_close();

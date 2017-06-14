@@ -4,7 +4,7 @@
 include '../ConnectDB/DB.php';
 $_SESSION["lock"] = TRUE;
 $_SESSION[top] = 200;
-$_SESSION[pathWeb] = "http://vipsbo888.com/Control/";
+$_SESSION[pathWeb] = "http://www.expwebdesign.com/demo/acc/";
 try {
 
     if (preg_match("/[^A-Za-z0-9]/", $_POST['username'])) {

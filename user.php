@@ -144,7 +144,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                     <td align="center">       <img src="assets/img/user/<?= $objResult["picture"] ?>" alt="" width="30" height="30" /></td>
                                                     <td align="center"><?= $objResult["user"] ?></td>
                                                     <td align="center" ><?= $objResult["pass"] ?></td>
-                                                    <td align="center" ><?= $objResult["fname"] . " " ?><?= $objResult["lname"] ?></td>
+                                                    <td align="center" ><?= $objResult["fname"] . " " ?><?= $objResult["lname"] ?>
+                                                    <br />
+                                                    Map Excel : <?= $objResult["map_excel"] ?>
+                                                    	
+                                                    	
+                                                    </td>
                                                     <td align="center" ><?= $objResult["phone"] ?></td>
         <!--                                                    <td align="center" ><?= $objResult["phone"] ?></td>
                                                         <td align="center" ><?= $objResult["email"] ?></td>-->
@@ -304,6 +309,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         document.getElementById("address2_add").value = result[9];
                         document.getElementById("line_add").value = result[10];
                         document.getElementById("facebok_add").value = result[11];
+                        document.getElementById("map_excel").value = result[12];
                         //  document.getElementById("mySelect").value = "banana";
 
                     }
