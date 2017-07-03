@@ -191,6 +191,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                 $strSql .= "    d.i_reference ";
                                             }
 
+$strSql = "";
+$strSql .= "
+select s_reference from bill_detail
+GROUP BY s_reference
+";
+
 
                                             $objQuery = mysql_query($strSql);
                                             $_tb_debit = 0;
@@ -198,9 +204,17 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                             $_tb_nettotal = 0;
 
                                             while ($objResult = mysql_fetch_array($objQuery)) {
+if ($_SESSION["status"] == 0) {
+$sumBD = mysql_fetch_array(mysql_query("select SUM(d.f_debit)-SUM(d.f_credit)  as nettotal from bill_detail d where  s_reference = '".$objResult[s_reference]."' "));
+	}else{
+$sumBD = mysql_fetch_array(mysql_query("select SUM(d.f_credit)-SUM(d.f_debit)  as nettotal from bill_detail d where  s_reference = '".$objResult[s_reference]."' "));		
+	}
+
+
+                                           	
                                                 ?>
                                                 <tr>
-                                                    <td><?= $objResult["s_name"] ?></td>
+                                                    <td><?= $objResult["s_reference"] ?></td>
 
 
                                                                                     <!--                                                        <td><b><font class="badge badge-success"><?= number_format($objResult["debit"]) ?></font> / 
@@ -210,11 +224,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 
 
-                                                    <td><b><label class="<?= ($objResult["nettotal"] > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($objResult["nettotal"], 2) ?> </label></b></td>
+                                                    <td><b><label class="<?= ($sumBD["nettotal"] > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($sumBD["nettotal"], 2) ?> </label></b></td>
 
 
 
-                                                    <td><img src="img/<?= ($objResult["nettotal"] > 0 ? "icon-up.png" : "icon-down.png" ) ?>" width="25" height="25"/> </td>
+                                                    <td><img src="img/<?= ($sumBD["nettotal"] > 0 ? "icon-up.png" : "icon-down.png" ) ?>" width="25" height="25"/> </td>
                                                 </tr>
                                             <?php } ?>  
 

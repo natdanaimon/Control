@@ -300,15 +300,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         document.getElementById("user_add").value = result[0];
                         document.getElementById("pass_add").value = result[1];
                         document.getElementById("fname_add").value = result[2];
-                        document.getElementById("lname_add").value = result[3];
+//                        document.getElementById("lname_add").value = result[3];
                         document.getElementById("phone_add").value = result[4];
                         document.getElementById("mail_add").value = result[5];
                         document.getElementById("status").value = result[6];
                         document.getElementById("type").value = result[7];
-                        document.getElementById("address1_add").value = result[8];
-                        document.getElementById("address2_add").value = result[9];
+//                        document.getElementById("address1_add").value = result[8];
+//                        document.getElementById("address2_add").value = result[9];
                         document.getElementById("line_add").value = result[10];
-                        document.getElementById("facebok_add").value = result[11];
+//                        document.getElementById("facebok_add").value = result[11];
                         document.getElementById("map_excel").value = result[12];
                         //  document.getElementById("mySelect").value = "banana";
 

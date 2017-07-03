@@ -75,7 +75,7 @@
                         <a href="user.php">
                             <span class="icon-user"></span> <?= $_SESSION["_user"] ?></a>
                     </li>
-                    <li class="<?= $_SESSION["m3"] ?>">
+                    <!--<li class="<?= $_SESSION["m3"] ?>">
                         <a href="webgame.php">
                             <span class="icon-globe"></span> 
                             <?= $_SESSION["_web"] ?>
@@ -86,7 +86,7 @@
                             <span class="icon-bar-chart"></span> 
                             <?= $_SESSION["_AddWeb"] ?>
                         </a>
-                    </li>
+                    </li>-->
 
                     <li class="<?= $_SESSION["m9"] ?>">
                         <a href="bank.php">

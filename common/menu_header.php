@@ -10,7 +10,8 @@
         <div class="container-fluid">
             <!-- BEGIN LOGO -->
             <a class="brand" href="index.php" style="margin-left: 0px;margin-top:0px; height: 50px">
-                <img src="assets/img/logo_new.jpg" alt="logo" />
+                <img src="assets/img/logo01.png" alt="logo" />
+                <!--<img src="assets/img/logo_new.jpg" alt="logo" />-->
 <!--                <img src="assets/img/logo.png" alt="logo" />-->
             </a>
             <!-- END LOGO -->

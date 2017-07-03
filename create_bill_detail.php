@@ -230,13 +230,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                         $strSql .= "    bill_detail d ";
                                         $strSql .= "  WHERE ";
                                         $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '$_GET[billno]' ";
-                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
+//                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
+                                        $strSql .= ")  ";
+                                        
+                                        $strSql = "";
+                                        $strSql .="
+                                        select b.*  from bill as b 
+                                        where b.s_bill_no = '".$_GET[billno]."'
+                                        
+                                        ";
+                                        
+                                        
                                         $objQuery = mysql_query($strSql);
                                         $ck_loop = FALSE;
                                         $sumtotal = 0;
+                                        $i = 1;
                                         while ($objResult = mysql_fetch_array($objQuery)) {
-                                            if (($objResult["f_debit"] + $objResult["f_credit"]) != 0) {
-                                                $sumtotal = $sumtotal + ($objResult["f_debit"] - $objResult["f_credit"]);
+
+$sum_bd = mysql_fetch_array(mysql_query("select sum(f_debit) as f_debit , sum(f_credit) as f_credit from bill_detail where s_bill_no = '".$_GET[billno]."' "));
+                                            if (($sum_bd["f_debit"] + $sum_bd["f_credit"]) != 0) {
+                                                $sumtotal = $sumtotal + ($sum_bd["f_debit"] - $sum_bd["f_credit"]);
                                                 $ck_loop = FALSE;
                                                 if (!$ck_loop) {
                                                     if ($objResult["s_clear"] != null) {
@@ -256,10 +269,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                 <div class="row-fluid">
                                                     <div class="span6 ">
                                                         <div class="control-group">
-                                                            <label class="control-label"><?= $objResult["s_name"] ?>:</label>
+                                                            <label class="control-label"><?= $objResult["s_user"] ?>:</label>
                                                             <div class="controls">
                                                                 <span class="text display-value" data-display="country">
-                                                                    <label class="<?= (($objResult["f_debit"] - $objResult["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($objResult["f_debit"] - $objResult["f_credit"]) ?> </label></b>
+                                                                    <label class="<?= (($sum_bd["f_debit"] - $sum_bd["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($sum_bd["f_debit"] - $sum_bd["f_credit"]) ?> </label></b>
                                                                      <span class="badge badge-important"><?= $objResult["s_dname"] ?></span>
                                                                 </span>
                                                                    
@@ -269,7 +282,30 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                     </div>
 
                                                 </div>
+<?php
+$resBD = mysql_query("select * from bill_detail  where s_bill_no = '".$_GET[billno]."' ");
+while($rows = mysql_fetch_array($resBD)){
 
+?>                                                
+                                                <div class="row-fluid">
+                                                    <div class="span6 ">
+                                                        <div class="control-group">
+                                                            <label class="control-label"><?= $rows["s_reference"] ?>:</label>
+                                                            <div class="controls">
+                                                                <span class="text display-value" data-display="country">
+                                                                    <label class="<?= (($rows["f_debit"] - $rows["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($rows["f_debit"] - $rows["f_credit"]) ?> </label></b>
+                                                                     <span class="badge badge-important"><?= $objResult["s_dname"] ?></span>
+                                                                </span>
+                                                                   
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+<?php 
+}
+?>
 
                                                 <?php
                                             }

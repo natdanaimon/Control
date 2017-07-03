@@ -151,8 +151,8 @@ $_SESSION["err_addBilling"] = "false";
             $name = ( (isset($r[$c])) ? $r[$c] : NULL );
 
             $keyWeb = $c;
-            $keyWinLose = $c + 2;
-            $keyUser = $c + 1;
+            $keyWinLose = $c + 1;
+           // $keyUser = $c + 1;
 
 
 
@@ -171,20 +171,20 @@ if($arr[user][id] > 0){
                     }
 
                     $col_web = ( (isset($r2[$keyWeb])) ? $r2[$keyWeb] : NULL );
-                    $col_us = ( (isset($r2[$keyUser])) ? $r2[$keyUser] : NULL );
+                    //$col_us = ( (isset($r2[$keyUser])) ? $r2[$keyUser] : NULL );
                     $col_wl = ( (isset($r2[$keyWinLose])) ? $r2[$keyWinLose] : NULL );
                    
 
                     if ($col_web != NULL and $col_web != 'Total') {
-$res[web] = mysql_query("select i_id from web where s_name = '".$col_web."' ");
-$arr[web] = mysql_fetch_array($res[web]);                    	
+/*$res[web] = mysql_query("select i_id from web where s_name = '".$col_web."' ");
+$arr[web] = mysql_fetch_array($res[web]); */                   	
                 $strSql = "";
                 $strSql .= "INSERT ";
                 $strSql .= "INTO ";
                 $strSql .= "  bill_detail( ";
                 $strSql .= "    s_bill_no, ";
                 $strSql .= "    s_bill_group, ";
-                $strSql .= "    i_reference, ";
+                $strSql .= "    s_reference, ";
                 $strSql .= "    s_dname, ";
                 $strSql .= "    f_debit, ";
                 $strSql .= "    f_credit, ";
@@ -196,7 +196,7 @@ $arr[web] = mysql_fetch_array($res[web]);
                 $strSql .= "VALUES( ";
                 $strSql .= "  '$generateBill', ";
                 $strSql .= "  '$generateBillGroup', ";
-                $strSql .= "  '".$arr[web][i_id]."', ";
+                $strSql .= "  '".$col_web."', ";
                 $strSql .= "  '$col_us', ";
                 if ($col_wl > 0) {
                     $strSql .= "  $col_wl, ";
