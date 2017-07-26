@@ -105,10 +105,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                 </div>
                                 <div class="portlet-body form">
                                     <!-- BEGIN FORM-->
-                                    <div class="form-horizontal form-view ">
+                                    <div class="form-horizontal form-view">
                                         <h3><b> #<?= $_GET[billno] ?></b> </h3>
-                                        <h3 class="form-section"> <?= $_SESSION["_form_account_pro"] ?> 
-                                            <small>
+                                        <h3 class="form-section"> <small> <?= $_SESSION["_form_account_pro"] ?> 
+
                                                 <?php
                                                 if ($_GET[status] == "Y") {
                                                     ?>
@@ -116,9 +116,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                     <?php
                                                 } else {
 
-                                                    echo "<label class='badge badge-warning'>" . $_SESSION["_msg_wait"] . "</label> ";
+                                                    echo "<label class='badge badge-warning'>" . $_SESSION["_msg_wait"] . "</label>";
                                                 }
+                                               
                                                 ?>
+
+
                                             </small></h3>
                                         <div class="row-fluid">
                                             <div class="span6 ">
@@ -178,7 +181,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                         <?php
                                         $strSql = "";
                                         $strSql .= "SELECT ";
-                                        $strSql .= "  * ";
+                                        $strSql .= "  *,b.s_dname ";
                                         $strSql .= "FROM ";
                                         $strSql .= "  ( ";
                                         $strSql .= "  SELECT ";
@@ -188,7 +191,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                         $strSql .= "    web2user w2u, ";
                                         $strSql .= "    web w ";
                                         $strSql .= "  WHERE ";
-                                        $strSql .= "    w.i_id = w2u.i_id AND w2u.s_user = '$_SESSION[user]' ";
+                                        $strSql .= "    w.i_id = w2u.i_id AND w2u.s_user = '$_GET[user]' ";
                                         $strSql .= ") w ";
                                         $strSql .= "LEFT JOIN ";
                                         $strSql .= "  ( ";
@@ -210,13 +213,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                         $strSql .= "    bill_detail d ";
                                         $strSql .= "  WHERE ";
                                         $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '$_GET[billno]' ";
-                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
+//                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
+                                        $strSql .= ")  ";
+                                        
+                                        $strSql = "";
+                                        $strSql .="
+                                        select b.*  from bill as b 
+                                        where b.s_bill_no = '".$_GET[billno]."'
+                                        
+                                        ";
+                                        
+                                        
                                         $objQuery = mysql_query($strSql);
                                         $ck_loop = FALSE;
                                         $sumtotal = 0;
+                                        $i = 1;
                                         while ($objResult = mysql_fetch_array($objQuery)) {
-                                            if (($objResult["f_debit"] + $objResult["f_credit"]) != 0) {
-                                                $sumtotal = $sumtotal + ($objResult["f_debit"] - $objResult["f_credit"]);
+
+$sum_bd = mysql_fetch_array(mysql_query("select sum(f_debit) as f_debit , sum(f_credit) as f_credit from bill_detail where s_bill_no = '".$_GET[billno]."' "));
+                                            if (($sum_bd["f_debit"] + $sum_bd["f_credit"]) != 0) {
+                                                $sumtotal = $sumtotal + ($sum_bd["f_debit"] - $sum_bd["f_credit"]);
                                                 $ck_loop = FALSE;
                                                 if (!$ck_loop) {
                                                     if ($objResult["s_clear"] != null) {
@@ -233,147 +249,52 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 
 
-                                                <div class="row-fluid">
+                                                <div class="row-fluid" style="display: none;">
                                                     <div class="span6 ">
                                                         <div class="control-group">
-                                                            <label class="control-label"><?= $objResult["s_name"] ?>:</label>
+                                                            <label class="control-label"><?= $objResult["s_user"] ?>:</label>
                                                             <div class="controls">
                                                                 <span class="text display-value" data-display="country">
-                                                                    <label class="<?= (($objResult["f_debit"] - $objResult["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($objResult["f_debit"] - $objResult["f_credit"]) ?> </label></b>
-                                                                    <span class="badge badge-important"><?= $objResult["s_dname"] ?></span>
+                                                                    <label class="<?= (($sum_bd["f_debit"] - $sum_bd["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($sum_bd["f_debit"] - $sum_bd["f_credit"]) ?> </label></b>
+                                                                     <span class="badge badge-important"><?= $objResult["s_dname"] ?></span>
                                                                 </span>
+                                                                   
                                                             </div>
+                                                            
                                                         </div>
                                                     </div>
 
                                                 </div>
+<?php
+$resBD = mysql_query("select * from bill_detail  where s_bill_no = '".$_GET[billno]."' ");
+while($rows = mysql_fetch_array($resBD)){
 
+?>                                                
+                                                <div class="row-fluid">
+                                                    <div class="span6 ">
+                                                        <div class="control-group">
+                                                            <label class="control-label"><?= $rows["s_reference"] ?>:</label>
+                                                            <div class="controls">
+                                                                <span class="text display-value" data-display="country">
+                                                                    <label class="<?= (($rows["f_debit"] - $rows["f_credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($rows["f_debit"] - $rows["f_credit"]) ?> </label></b>
+                                                                     <span class="badge badge-important"><?= $objResult["s_dname"] ?></span>
+                                                                </span>
+                                                                   
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+<?php 
+}
+?>
 
                                                 <?php
                                             }
                                         }
                                         ?>
-                                        <h3 class="form-section"><?= $_SESSION["_result_pro_total"] ?> <?= $_SESSION[clearbill] ?></h3> 
-                                        <?php
-                                        $strSql = "";
-                                        $strSql .= "select d.s_dname , d.debit , c.credit from  ";
-                                        $strSql .= "(SELECT ";
-                                        $strSql .= "  tmp.s_dname , sum(tmp.f_debit) debit ";
-                                        $strSql .= "FROM ";
-                                        $strSql .= "  ( ";
-                                        $strSql .= "  SELECT ";
-                                        $strSql .= "    b.s_dname , b.f_debit , b.f_credit ";
-                                        $strSql .= "  FROM ";
-                                        $strSql .= "    ( ";
-                                        $strSql .= "    SELECT ";
-                                        $strSql .= "      w.*, ";
-                                        $strSql .= "      w2u.s_user us ";
-                                        $strSql .= "    FROM ";
-                                        $strSql .= "      web2user w2u, ";
-                                        $strSql .= "      web w ";
-                                        $strSql .= "    WHERE ";
-                                        $strSql .= "      w.i_id = w2u.i_id AND w2u.s_user ='$_SESSION[user]' ";
-                                        $strSql .= "  ) w ";
-                                        $strSql .= "LEFT JOIN ";
-                                        $strSql .= "  ( ";
-                                        $strSql .= "  SELECT ";
-                                        $strSql .= "    h.s_user, ";
-                                        $strSql .= "    h.s_bill_no, ";
-                                        $strSql .= "    DATE_FORMAT(h.d_start, ";
-                                        $strSql .= "    '%Y-%m-%d') d_start, ";
-                                        $strSql .= "    DATE_FORMAT(h.d_end, ";
-                                        $strSql .= "    '%Y-%m-%d') d_end, ";
-                                        $strSql .= "    h.s_status, ";
-                                        $strSql .= "    d.f_debit, ";
-                                        $strSql .= "    d.f_credit, ";
-                                        $strSql .= "    d.i_reference, ";
-                                        $strSql .= "    d.s_dname, ";
-                                        $strSql .= "    h.s_clear ";
-                                        $strSql .= "  FROM ";
-                                        $strSql .= "    bill h, ";
-                                        $strSql .= "    bill_detail d ";
-                                        $strSql .= "  WHERE ";
-                                        $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '$_GET[billno]' ";
-                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
-                                        $strSql .= "WHERE ";
-                                        $strSql .= "  b.s_bill_no IS NOT NULL ";
-                                        $strSql .= ") tmp ";
-                                        $strSql .= "group by   tmp.s_dname ) d , ";
-                                        $strSql .= "(SELECT ";
-                                        $strSql .= "  tmp.s_dname , sum(tmp.f_credit) credit ";
-                                        $strSql .= "FROM ";
-                                        $strSql .= "  ( ";
-                                        $strSql .= "  SELECT ";
-                                        $strSql .= "    b.s_dname , b.f_debit , b.f_credit ";
-                                        $strSql .= "  FROM ";
-                                        $strSql .= "    ( ";
-                                        $strSql .= "    SELECT ";
-                                        $strSql .= "      w.*, ";
-                                        $strSql .= "      w2u.s_user us ";
-                                        $strSql .= "    FROM ";
-                                        $strSql .= "      web2user w2u, ";
-                                        $strSql .= "      web w ";
-                                        $strSql .= "    WHERE ";
-                                        $strSql .= "      w.i_id = w2u.i_id AND w2u.s_user ='$_SESSION[user]' ";
-                                        $strSql .= "  ) w ";
-                                        $strSql .= "LEFT JOIN ";
-                                        $strSql .= "  ( ";
-                                        $strSql .= "  SELECT ";
-                                        $strSql .= "    h.s_user, ";
-                                        $strSql .= "    h.s_bill_no, ";
-                                        $strSql .= "    DATE_FORMAT(h.d_start, ";
-                                        $strSql .= "    '%Y-%m-%d') d_start, ";
-                                        $strSql .= "    DATE_FORMAT(h.d_end, ";
-                                        $strSql .= "    '%Y-%m-%d') d_end, ";
-                                        $strSql .= "    h.s_status, ";
-                                        $strSql .= "    d.f_debit, ";
-                                        $strSql .= "    d.f_credit, ";
-                                        $strSql .= "    d.i_reference, ";
-                                        $strSql .= "    d.s_dname, ";
-                                        $strSql .= "    h.s_clear ";
-                                        $strSql .= "  FROM ";
-                                        $strSql .= "    bill h, ";
-                                        $strSql .= "    bill_detail d ";
-                                        $strSql .= "  WHERE ";
-                                        $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no ='$_GET[billno]' ";
-                                        $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
-                                        $strSql .= "WHERE ";
-                                        $strSql .= "  b.s_bill_no IS NOT NULL ";
-                                        $strSql .= ") tmp ";
-                                        $strSql .= "group by   tmp.s_dname ) c ";
-                                        $strSql .= "WHERE d.s_dname = c.s_dname ";
-                                        $strSql .= "order by d.s_dname ";
-                                        $objQuery = mysql_query($strSql);
-                                        while ($objResult = mysql_fetch_array($objQuery)) {
-                                            ?>
-
-
-                                            <div class="row-fluid">
-                                                <div class="span6 ">
-                                                    <div class="control-group">
-                                                        <label class="control-label"><?= $objResult["s_dname"] ?>:</label>
-                                                        <div class="controls">
-                                                            <span class="text display-value" data-display="country">
-                                                                 <label class="<?= (($objResult["debit"] - $objResult["credit"]) > 0 ? "badge badge-success" : "badge badge-important" ) ?> " ><?= number_format($objResult["debit"] - $objResult["credit"]) ?> </label></b>
-                                                                  
-
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        <?php } ?>
-
-
-
-
-
-
-
-
-                                        <h3 class="form-section"><?= $_SESSION["_result_pro"] ?> <?= $_SESSION[clearbill] ?></h3> 
+                                        <h3 class="form-section"><?= $_SESSION["_result_pro"] ?> <?= $_SESSION[clearbill]?></h3>
 
 
                                         <?php if ($_GET[accu] > 0) { ?>
@@ -385,6 +306,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
                                             </div>
                                         <?php } ?>
+
+
+
                                         <div class="control-group">
                                             <label class="control-label"><?= $_SESSION["_result"] ?> :</label>
                                             <div class="controls">

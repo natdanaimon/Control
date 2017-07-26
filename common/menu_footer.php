@@ -11,7 +11,7 @@
     </div>
     <br/><br/><br/><br/>
     <?php if ($_SESSION["footer"]) { ?>
-        <div class="footer-inner navbar navbar-inverse navbar-fixed-bottom" align="center">
+        <div class="footer-inner navbar navbar-inverse navbar-fixed-bottom" align="center" style="display: none;">
 
             <a href="#"><img src="bannerFooter.jpg" Style="width:800px;height: 85px"/></a>
 

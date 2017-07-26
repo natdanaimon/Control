@@ -252,7 +252,7 @@ while ($objResult = mysql_fetch_array($objQuery)) {
 //
 //                                                        $game[$i] = $objResult["i_id"];
                                                     ?>
-                                                    <div class="control-group" >
+                                                    <div class="control-group" style="display: none;"  >
 
                                                         <label class="control-label "><span class="badge badge-info"><?= $_SESSION["_web"] ?></span></label>
                                                         <div class="controls " style=" width: 450px;">
@@ -319,6 +319,29 @@ while ($objResult = mysql_fetch_array($objQuery)) {
                                                     $strSql .= "  WHERE ";
                                                     $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '$_GET[billno]' ";
                                                     $strSql .= ") b ON w.i_id = b.i_reference AND b.s_user = w.us ";
+                                                    
+                                                    
+                                                    
+$strSql = "";  
+ $strSql .= "  SELECT ";
+                                                    $strSql .= "    h.s_user, ";
+                                                    $strSql .= "    h.s_bill_no, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_start, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_start, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_end, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_end, ";
+                                                    $strSql .= "    h.s_status, ";
+                                                    $strSql .= "    d.i_id, ";
+                                                    $strSql .= "    d.f_debit, ";
+                                                    $strSql .= "    d.f_credit, ";
+                                                    $strSql .= "    d.i_reference, ";
+                                                    $strSql .= "    d.s_reference ";
+                                                    $strSql .= "  FROM ";
+                                                    $strSql .= "    bill h, ";
+                                                    $strSql .= "    bill_detail d ";
+                                                    $strSql .= "  WHERE ";
+                                                    $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '$_GET[billno]' ";
+                                                              
                                                     $objQuery = mysql_query($strSql);
                                                     $i = 0;
                                                     while ($objResult = mysql_fetch_array($objQuery)) {
@@ -341,9 +364,9 @@ while ($objResult = mysql_fetch_array($objQuery)) {
                                                         } else {
                                                             $tmpValue = 0;
                                                         }
-                                                        if ($tmpValue <= 0) {
+                                                        /*if ($tmpValue <= 0) {
                                                             continue;
-                                                        }
+                                                        }*/
                                                         ?>
                                                         <script>
                                                             var keyInitial = <?= $objResult["i_id"] ?>;
@@ -375,19 +398,19 @@ while ($objResult = mysql_fetch_array($objQuery)) {
 //                                                                        $tmpValue = 0;
 //                                                                    }
                                                                     ?>
-                                                                    <input class="m-wrap"  type="text"  name="tmpD_<?= $objResult["i_id"] . "_" . $i ?>" 
-                                                                           id="tmpD_<?= $objResult["i_id"] . "_" . $i ?>"  
+                                                                    <input class="m-wrap"  type="text"  name="tmpD_<?= $objResult["i_id"]; ?>" 
+                                                                           id="tmpD_<?= $objResult["i_id"]; ?>"  
                                                                            onchange="formatCells(this.value, 'tmpD',<?= $i ?>)"
                                                                            value="<?= $tmpValue ?>" required style="text-align:right;padding-right:2px;"/>
                                                                     <font color="green"><span class="add-on"><i class="icon-usd"></i></span></font>
                                                                 </div>
                                                                 <span></span>
-                                                                <input class="m-wrap"  type="text"  name="tmpD2_<?= $objResult["i_id"] . "_" . $i ?>" 
-                                                                       id="tmpD2_<?= $objResult["i_id"] . "_" . $i ?>"  
+                                                                <input class="m-wrap"  type="text"  name="tmpD2_<?= $objResult["i_id"]; ?>" 
+                                                                       id="tmpD2_<?= $objResult["i_id"] ; ?>"  
                                                                        onchange="formatCells(this.value, 'tmpD',<?= $i ?>)"
-                                                                       value="<?= $objResult["s_dname"] ?>" required style="text-align:left;padding-right:2px;"/>
+                                                                       value="<?= $objResult["s_reference"] ?>" required style="text-align:left;padding-right:2px;"/>
                                                                 <span></span>
-                                                                <button type="button"  class="btn red " onclick="removeEle(<?= $objResult["i_id"] ?>)"><i class="icon-minus m-icon-white" ></i></button>
+                                                                <button type="button"  class="btn red " onclick="removeEle(<?= $objResult["i_id"] ?>)" style="display: none;"><i class="icon-minus m-icon-white" ></i></button>
 
                                                             </div>
 

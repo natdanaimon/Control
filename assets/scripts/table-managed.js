@@ -157,6 +157,70 @@ var TableManaged = function () {
                     }
                 ]
             });
+            
+            
+            /************* Game Index *************/
+            $('#index_game').dataTable({
+                "aoColumns": [
+                    
+                    {"bSortable": true},
+                    {"bSortable": true},
+                    {"bSortable": true}
+                ],
+                "aLengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                // set the initial value
+                "iDisplayLength": 10,
+                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+                "sPaginationType": "bootstrap",
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ records per page",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+                },
+                "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0]
+                    }
+                ]
+            });
+            /************* Game Index *************/
+            
+            /************* Bill Index *************/
+            $('#index_bill').dataTable({
+                "aoColumns": [
+                    
+                    {"bSortable": true},
+                    {"bSortable": true},
+                    {"bSortable": true},
+                    {"bSortable": true}
+                ],
+                "aLengthMenu": [
+                    [5, 15, 20, -1],
+                    [5, 15, 20, "All"] // change per page values here
+                ],
+                // set the initial value
+                "iDisplayLength": 10,
+                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+                "sPaginationType": "bootstrap",
+                "oLanguage": {
+                    "sLengthMenu": "_MENU_ records per page",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+                },
+                "aoColumnDefs": [{
+                        'bSortable': false,
+                        'aTargets': [0]
+                    }
+                ]
+            });
+            /************* Bill Index *************/
 
 
 

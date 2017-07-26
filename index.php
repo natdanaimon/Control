@@ -142,9 +142,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <table class="table table-striped table-bordered table-advance table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="index_game">
                                         <thead>
-                                            <tr>
+                                            <tr style="background-color: #DDD;">
                                                 <th><i class="icon-globe"></i> <?= $_SESSION["_webname"] ?></th>
                                                 <th><i class="icon-bookmark"></i> <?= $_SESSION["_winlose"] ?></th>
 
@@ -228,7 +228,9 @@ $sumBD = mysql_fetch_array(mysql_query("select SUM(d.f_credit)-SUM(d.f_debit)  a
 
 
 
-                                                    <td><img src="img/<?= ($sumBD["nettotal"] > 0 ? "icon-up.png" : "icon-down.png" ) ?>" width="25" height="25"/> </td>
+                                                    <td><img src="img/<?= ($sumBD["nettotal"] > 0 ? "icon-up.png" : "icon-down.png" ) ?>" width="25" height="25"/> 
+                                                    <span style="display: none;"><?=$sumBD["nettotal"];?></span>
+                                                    </td>
                                                 </tr>
                                             <?php } ?>  
 
@@ -269,9 +271,9 @@ $sumBD = mysql_fetch_array(mysql_query("select SUM(d.f_credit)-SUM(d.f_debit)  a
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <table class="table table-striped table-bordered table-advance table-hover">
+                                    <table class="table table-striped table-bordered table-advance table-hover" id="index_bill">
                                         <thead>
-                                            <tr>
+                                            <tr style="background-color: #DDD">
                                                 <th><i class="icon-tags"></i> <?= $_SESSION["_bill_no"] ?></th>
                                                 <th><i class="icon-user"></i> <?= $_SESSION["tb_u_user"] ?></th>
 

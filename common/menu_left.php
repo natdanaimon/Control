@@ -185,7 +185,7 @@
                 </a>
             </li>-->
 
-            <li class="<?= $_SESSION["m4"] ?>">
+            <li class="<?= $_SESSION["m4"] ?>" style="display: none;">
                 <a href="javascript:;">
                     <i class="icon-tags"></i> 
 
@@ -347,7 +347,7 @@
 
 
 
-            <li class="<?= $_SESSION["m5"] ?>">
+            <li class="<?= $_SESSION["m5"] ?>" style="display: none;">
                 <a href="javascript:;">
                     <i class="icon-tags"></i> 
 

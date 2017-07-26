@@ -266,7 +266,7 @@ $sum_bd = mysql_fetch_array(mysql_query("select sum(f_debit) as f_debit , sum(f_
 
 
 
-                                                <div class="row-fluid">
+                                                <div class="row-fluid" style="display: none;">
                                                     <div class="span6 ">
                                                         <div class="control-group">
                                                             <label class="control-label"><?= $objResult["s_user"] ?>:</label>

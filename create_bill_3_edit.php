@@ -102,10 +102,10 @@ if (!$flgInt) {
     exit(0);
 }
 if ($flgZero) {
-    $_SESSION["VALIDATEION_FORM"] = TRUE;
+    $_SESSION["VALIDATEION_FORM"] = FALSE;
     $_SESSION["VALIDATEION_MSG"] = "การสร้างบิลจะต้องมียอดเรียกเก็บเงิน > 0";
-    header("location:create_bill_2_edit.php?billno=$_SESSION[generateBill]&user=$_SESSION[form_user]");
-    exit(0);
+   /* header("location:create_bill_2_edit.php?billno=$_SESSION[generateBill]&user=$_SESSION[form_user]");
+    exit(0);*/
 }
 $generateBill = $_SESSION['generateBill'];
 ?>
@@ -225,7 +225,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                     </div>
                                 </div>
                                 <div class="portlet-body form">
-                                    <form action="Function/Add_Billing_Edit.php" class="form-horizontal" method="post" novalidate="novalidate">
+                                    <form action="Function/Add_Billing_Excel_Edit.php" class="form-horizontal" method="post" novalidate="novalidate">
                                         <div class="form-wizard">
                                             <div class="navbar steps">
                                                 <div class="navbar-inner">
@@ -313,17 +313,37 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                     $strSql .= "where w.i_id = w2u.i_id ";
                                                     $strSql .= "and w2u.s_user = '" . $_SESSION["form_user"] . "' ";
 //                                                    $strSql = "select * from web";
+
+
+$strSql = "";  
+ $strSql .= "  SELECT ";
+                                                    $strSql .= "    h.s_user, ";
+                                                    $strSql .= "    h.s_bill_no, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_start, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_start, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_end, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_end, ";
+                                                    $strSql .= "    h.s_status, ";
+                                                    $strSql .= "    d.i_id, ";
+                                                    $strSql .= "    d.f_debit, ";
+                                                    $strSql .= "    d.f_credit, ";
+                                                    $strSql .= "    d.i_reference, ";
+                                                    $strSql .= "    d.s_reference ";
+                                                    $strSql .= "  FROM ";
+                                                    $strSql .= "    bill h, ";
+                                                    $strSql .= "    bill_detail d ";
+                                                    $strSql .= "  WHERE ";
+                                                    $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '".$generateBill."' ";
                                                     $objQuery = mysql_query($strSql);
                                                     $sumtotal = 0;
                                                     while ($objResult = mysql_fetch_array($objQuery)) {
-                                                        for ($i = 0; $i < 99; $i++) {
-                                                            $txtD = "tmpD_" . $objResult["i_id"] . "_" . $i;
-                                                            $txtD2 = "tmpD2_" . $objResult["i_id"] . "_" . $i;
+                                                            $txtD = "tmpD_" . $objResult["i_id"];
+                                                            $txtD2 = "tmpD2_" . $objResult["i_id"];
                                                             if (($_POST[$txtD] + $_POST[$txtC]) != 0) {
                                                                 $sumtotal = $sumtotal + ($_POST[$txtD]);
                                                                 ?>
                                                                 <div class="control-group">
-                                                                    <label class="control-label"><?= $objResult["s_name"] ?>:</label>
+                                                                    <label class="control-label"><?= $_POST[$txtD2] ?> :</label>
                                                                     <div class="controls">
                                                                         <span class="text display-value" data-display="country">
                                                                             <?php if ($_POST[$txtD] > 0) { ?>
@@ -332,7 +352,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                                                 ?>
                                                                                 <font color="red"> <b><u><?= number_format($_POST[$txtD]) ?></u></b></font>     
                                                                             <?php } ?>
-                                                                            <span class="badge badge-important"><?= $_POST[$txtD2] ?></span>
+                                                                            <span class="badge badge-important"></span>
                                                                         </span>
                                                                         <input type="hidden" name="<?= $txtD ?>" value="<?= $_POST[$txtD] ?>"/>
                                                                         <input type="hidden" name="<?= $txtD2 ?>" value="<?= $_POST[$txtD2] ?>"/>
@@ -342,7 +362,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                                 </div>
                                                                 <?php
                                                             }
-                                                        }
+
                                                     }
                                                     ?>
                                                     <h4 class="form-section"><?= $_SESSION["_result_pro"] ?></h4>

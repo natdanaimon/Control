@@ -215,17 +215,37 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 //                                                    $strSql .= "where w.i_id = w2u.i_id ";
 //                                                    $strSql .= "and w2u.s_user = '" . $_SESSION["form_user"] . "' ";
 //                                                    $strSql = "select * from web";
+
+$strSql = "";  
+ $strSql .= "  SELECT ";
+                                                    $strSql .= "    h.s_user, ";
+                                                    $strSql .= "    h.s_bill_no, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_start, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_start, ";
+                                                    $strSql .= "    DATE_FORMAT(h.d_end, ";
+                                                    $strSql .= "    '%Y-%m-%d') d_end, ";
+                                                    $strSql .= "    h.s_status, ";
+                                                    $strSql .= "    d.i_id, ";
+                                                    $strSql .= "    d.f_debit, ";
+                                                    $strSql .= "    d.f_credit, ";
+                                                    $strSql .= "    d.i_reference, ";
+                                                    $strSql .= "    d.s_reference ";
+                                                    $strSql .= "  FROM ";
+                                                    $strSql .= "    bill h, ";
+                                                    $strSql .= "    bill_detail d ";
+                                                    $strSql .= "  WHERE ";
+                                                    $strSql .= "    h.s_bill_no = d.s_bill_no AND h.s_bill_no = '".$_SESSION[generateBill]."' ";
                                                     $objQuery = mysql_query($strSql);
                                                     $sumtotal = 0;
                                                     while ($objResult = mysql_fetch_array($objQuery)) {
-                                                        $txtD = "tmpD_" . $objResult["i_reference"];
-                                                        $txtC = "tmpC_" . $objResult["i_reference"];
-                                                        $txtD2 = $objResult["s_dname"];
+                                                        $txtD = "tmpD_" . $objResult["i_id"];
+                                                        $txtC = "tmpC_" . $objResult["i_id"];
+                                                        $txtD2 = $objResult["s_reference"];
                                                         if (($objResult["f_debit"] + $objResult["f_credit"]) != 0) {
                                                             $sumtotal = $sumtotal + ($objResult["f_debit"] - $objResult["f_credit"]);
                                                             ?>
                                                             <div class="control-group">
-                                                                <label class="control-label"><?= $objResult["s_name"] ?>:</label>
+                                                                <label class="control-label"><?= $objResult["s_reference"] ?> :</label>
                                                                 <div class="controls">
                                                                     <?php if ($objResult["f_debit"] - $objResult["f_credit"] > 0) { ?>
                                                                         <font color="green"> <b><u><?= number_format($objResult["f_debit"] - $objResult["f_credit"]) ?></u></b></font>     
@@ -233,7 +253,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                                         ?>
                                                                         <font color="red"> <b><u><?= number_format($objResult["f_debit"] - $objResult["f_credit"]) ?></u></b></font>     
                                                                     <?php } ?>
-                                                                    <span class="badge badge-important"><?= $txtD2 ?></span>
+                                                                    <!--<span class="badge badge-important"><?= $txtD2 ?></span>-->
                                                                 </div>
 
                                                             </div>
