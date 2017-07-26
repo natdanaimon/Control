@@ -700,4 +700,10 @@ if ($objResult['var'] == 'file_excel_xlsx') {
 if ($objResult['var'] == 'action_delete_group') {
     $_SESSION['action_delete_group'] = $objResult['eng'];
 }
+
+if ($objResult['var'] == '_winlose') {
+    $_SESSION['_winlose'] = $objResult['eng'];
+}
+
+
 ?>

@@ -692,4 +692,8 @@ if ($objResult['var'] == 'action_delete_group') {
     $_SESSION['action_delete_group'] = $objResult['thai'];
 }
 
+if ($objResult['var'] == '_winlose') {
+    $_SESSION['_winlose'] = $objResult['thai'];
+}
+
 ?>

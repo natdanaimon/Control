@@ -80,11 +80,11 @@
 <script src="facebook_right/js/jquery-1.4.4.min.js" type="text/javascript"></script>
 
 
-<div class="show_hide" onclick='toggle_float_menu()'>
+<div class="show_hide" onclick='toggle_float_menu()' style="display: none;">
     <img src="facebook_right/img/p1.png" id="show_float" style="display:none;" alt=""/>                   
     <img src="facebook_right/img/p2.png" id="hide_float" style="" alt=""/>               
 </div>
-<div class="social_share" >
+<div class="social_share" style="display: none;">
     <div align="center"><br>
         <br>
         <a href="https://online.kasikornbankgroup.com/K-Online/login.jsp?lang=th&type=" target="_blank"><img src="assets/bank/kbank.png" width="68"/>กสิกรไทย</a>

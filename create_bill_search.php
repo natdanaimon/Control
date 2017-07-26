@@ -143,16 +143,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                 <th><?= $_SESSION["_bill_no"] ?></th>
                                                 <th><?= $_SESSION["tb_u_user"] ?></th>
                                                 <th><?= $_SESSION["_daterange"] ?></th>
-                                                <th ><?= $_SESSION["_total"] ?></th>
+                                                <th ><?= $_SESSION["_winlose"] ?></th>
                                                 <th ><?= $_SESSION["_status"] ?></th>
-                                                <th ><?= $_SESSION["_datechange"] ?></th>
+                                                <th style="display: none;"><?= $_SESSION["_datechange"] ?></th>
  <!--                                                <th >เบอร์โทรศัพท์</th>
                                               <th >อีเมล์</th>-->
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while ($objResult = mysql_fetch_array($objQuery)) { ?>
+                                            <?php while ($objResult = mysql_fetch_array($objQuery)) { 
+$user = mysql_fetch_array(mysql_query("select map_excel as s_user from user u where  u.user = '".$objResult[s_user]."' "));	                                            
+                                            ?>
                                                 <tr class="odd gradeX">
     <!--                                                    <td><input type="checkbox" class="checkboxes" value="1" /></td>-->
                                                     <td align="center">#<?= $objResult["s_bill_no"] ?> <br /> <font style="color: #1e8883">[<?=$objResult["s_bill_group"];?>]</font>  
@@ -162,7 +164,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                                                         }
                                                         ?>
                                                     </td>
-                                                    <td align="center"><?= $objResult["s_user"] ?></td>
+                                                    <td align="center"><?= $user["s_user"] ?></td>
                                                     <td align="center" ><?= $objResult["d_start"] ?> - <?= $objResult["d_end"] ?></td>
                                                     <td align="center" ><?= number_format($objResult["total"], 2) ?></td>
                                                     <td align="center" >
@@ -179,7 +181,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
 
                                                     </td>
-                                                    <td align="center" ><?= $objResult["d_change"] ?></td>
+                                                    <td align="center" style="display: none;"><?= $objResult["d_change"] ?></td>
                                             <span class='badge badge-success'></span>
                                             <td align="center" width="80" >
                                                 <div class="btn-toolbar">
